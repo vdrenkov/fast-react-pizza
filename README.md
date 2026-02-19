@@ -1,6 +1,6 @@
 # Fast React Pizza
 
-React + Redux Toolkit single-page app for browsing a pizza menu, managing a cart, and placing orders against the public `react-fast-pizza` API. Built to practise modern React patterns, data loading with React Router, and Tailwind CSS styling.
+React + Redux Toolkit single-page app for browsing a pizza menu, managing a cart, and placing orders against the public `react-fast-pizza` API. Built to practise modern React patterns, data loading with React Router data APIs, and Tailwind CSS styling.
 
 ## Features
 
@@ -12,10 +12,14 @@ React + Redux Toolkit single-page app for browsing a pizza menu, managing a cart
 
 ## Tech Stack
 
-- React 18, Vite, React Router 6
+- React 19, Vite 7, React Router 7 (`react-router`)
 - Redux Toolkit + React Redux
-- Tailwind CSS, PostCSS, Autoprefixer
-- ESLint, Prettier (with Tailwind plugin)
+- Tailwind CSS 4, PostCSS (`@tailwindcss/postcss`), Autoprefixer
+- ESLint 9 (flat config), Prettier (with Tailwind plugin)
+
+## Prerequisites
+
+- Node.js `^20.19.0` or `>=22.12.0` (Vite 7 requirement)
 
 ## Getting Started
 
