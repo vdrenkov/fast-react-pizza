@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useFetcher, useLoaderData } from "react-router-dom";
+import { useFetcher, useLoaderData } from "react-router";
 
 import OrderItem from "./OrderItem";
 import UpdateOrder from "./UpdateOrder";
@@ -91,3 +91,4 @@ export default function Order() {
 export async function loader({ params }) {
   return await getOrder(params.id);
 }
+

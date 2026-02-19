@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router";
 
 export default function LinkButton({ children, to }) {
   const className = "text-sm text-blue-500 hover:text-blue-800 hover:underline";
@@ -17,3 +17,4 @@ export default function LinkButton({ children, to }) {
     </Link>
   );
 }
+

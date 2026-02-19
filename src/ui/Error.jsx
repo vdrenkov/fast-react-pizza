@@ -1,4 +1,4 @@
-import { useRouteError } from "react-router-dom";
+import { useRouteError } from "react-router";
 
 import LinkButton from "./LinkButton";
 
@@ -13,3 +13,4 @@ export default function NotFound() {
     </div>
   );
 }
+

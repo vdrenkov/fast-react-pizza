@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Form, redirect, useActionData, useNavigation } from "react-router-dom";
+import { Form, redirect, useActionData, useNavigation } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 
 import Button from "../../ui/Button";
@@ -44,7 +44,7 @@ export default function CreateOrder() {
         Ready to order? Let&apos;s go!
       </h2>
 
-      <Form method="POST">
+      <Form method="post">
         <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
           <label className="sm:basis-40">First name</label>
           <input
@@ -157,3 +157,4 @@ export async function action({ request }) {
   store.dispatch(clearCart());
   return redirect(`/order/${newOrder.id}`);
 }
+

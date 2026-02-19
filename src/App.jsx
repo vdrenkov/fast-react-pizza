@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router";
 
 import Home from "./ui/Home";
 import Error from "./ui/Error";
@@ -13,33 +13,33 @@ import { action as updateOrderAction } from "./features/order/UpdateOrder";
 
 const router = createBrowserRouter([
   {
-    element: <AppLayout />,
-    errorElement: <Error />,
+    Component: AppLayout,
+    ErrorBoundary: Error,
     children: [
       {
-        path: "/",
-        element: <Home />,
+        index: true,
+        Component: Home,
       },
       {
         path: "/menu",
-        element: <Menu />,
+        Component: Menu,
         loader: menuLoader,
-        errorElement: <Error />,
+        ErrorBoundary: Error,
       },
       {
         path: "/cart",
-        element: <Cart />,
+        Component: Cart,
       },
       {
         path: "/order/new",
-        element: <CreateOrder />,
+        Component: CreateOrder,
         action: createOrderAction,
       },
       {
         path: "/order/:id",
-        element: <Order />,
+        Component: Order,
         loader: orderLoader,
-        errorElement: <Error />,
+        ErrorBoundary: Error,
         action: updateOrderAction,
       },
     ],
@@ -49,3 +49,4 @@ const router = createBrowserRouter([
 export default function App() {
   return <RouterProvider router={router} />;
 }
+

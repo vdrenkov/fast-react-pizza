@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 export default function Button({ children, isDisabled, to, type, onClick }) {
   const baseStyles =
@@ -32,3 +32,4 @@ export default function Button({ children, isDisabled, to, type, onClick }) {
     </button>
   );
 }
+
