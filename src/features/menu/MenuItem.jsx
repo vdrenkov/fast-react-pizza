@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useDispatch, useSelector } from "react-redux";
 
 import Button from "../../ui/Button";
@@ -33,16 +32,16 @@ export default function MenuItem({ pizza }) {
       />
       <div className="flex grow flex-col pt-0.5">
         <p className="font-medium">{name}</p>
-        <p className="text-sm capitalize italic text-stone-500">
+        <p className="text-sm text-stone-500 capitalize italic">
           {ingredients.join(", ")}
         </p>
         <div className="mt-auto flex items-center justify-between">
-          {!soldOut ? (
-            <p className="text-sm">{formatCurrency(unitPrice)}</p>
-          ) : (
-            <p className="text-sm font-medium uppercase text-stone-500">
+          {soldOut ? (
+            <p className="text-sm font-medium text-stone-500 uppercase">
               Sold out
             </p>
+          ) : (
+            <p className="text-sm">{formatCurrency(unitPrice)}</p>
           )}
 
           {isInCart && (
