@@ -46,8 +46,11 @@ export default function CreateOrder() {
 
       <Form method="post">
         <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
-          <label className="sm:basis-40">First name</label>
+          <label htmlFor="customer" className="sm:basis-40">
+            First name
+          </label>
           <input
+            id="customer"
             className="input grow"
             type="text"
             name="customer"
@@ -57,9 +60,17 @@ export default function CreateOrder() {
         </div>
 
         <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
-          <label className="sm:basis-40">Phone number</label>
+          <label htmlFor="phone" className="sm:basis-40">
+            Phone number
+          </label>
           <div className="grow">
-            <input className="input w-full" type="tel" name="phone" required />
+            <input
+              id="phone"
+              className="input w-full"
+              type="tel"
+              name="phone"
+              required
+            />
             {formErrors?.phone && (
               <p className="mt-2 rounded-md bg-red-100 p-2 text-xs text-red-700">
                 {formErrors.phone}
@@ -69,9 +80,12 @@ export default function CreateOrder() {
         </div>
 
         <div className="relative mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
-          <label className="sm:basis-40">Address</label>
+          <label htmlFor="address" className="sm:basis-40">
+            Address
+          </label>
           <div className="grow">
             <input
+              id="address"
               className="input w-full"
               type="text"
               name="address"

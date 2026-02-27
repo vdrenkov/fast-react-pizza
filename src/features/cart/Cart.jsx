@@ -1,16 +1,16 @@
 import { useDispatch, useSelector } from "react-redux";
 
-
 import Button from "./../../ui/Button";
 import LinkButton from "./../../ui/LinkButton";
 import CartItem from "./CartItem";
-import { clearCart, getCart, getUsername } from "./cartSlice";
+import { clearCart, getCart } from "./cartSlice";
 import EmptyCart from "./EmptyCart";
+import { getUsername } from "../user/userSlice";
 
 export default function Cart() {
+  const dispatch = useDispatch();
   const username = useSelector(getUsername);
   const cart = useSelector(getCart);
-  const dispatch = useDispatch();
 
   if (!cart.length) return <EmptyCart />;
 

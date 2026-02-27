@@ -15,7 +15,7 @@ export function formatDate(dateStr) {
 }
 
 export function calcMinutesLeft(dateStr) {
-  const d1 = Date.now();
-  const d2 = new Date(dateStr).getTime();
-  return Math.round((d2 - d1) / 60000);
+  const date1 = Date.now();
+  const date2 = new Date(dateStr).getTime();
+  return Math.round((date2 - date1) / 60000);
 }

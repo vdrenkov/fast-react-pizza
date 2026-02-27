@@ -44,8 +44,6 @@ export const {
 
 export const getCart = (state) => state.cart.cart;
 
-export const getUsername = (state) => state.user.username;
-
 export const getTotalCartQuantity = (state) =>
   state.cart.cart.reduce((sum, item) => item.quantity + sum, 0);
 
