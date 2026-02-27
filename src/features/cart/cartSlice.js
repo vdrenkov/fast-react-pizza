@@ -9,10 +9,8 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addItem(state, action) {
-      // payload = newItem
       state.cart.push(action.payload);
     },
-    // payload = pizzaId
     deleteItem(state, action) {
       state.cart = state.cart.filter((item) => item.pizzaId !== action.payload);
     },
@@ -33,6 +31,7 @@ const cartSlice = createSlice({
     },
   },
 });
+
 export default cartSlice.reducer;
 
 export const {
