@@ -33,6 +33,16 @@ npm run test    # run tests in watch mode
 
 Open `http://localhost:5173` (default) to view the app. The geolocation lookup requires allowing browser location access and HTTPS in production.
 
+## Scripts
+
+- `npm run dev` - start Vite dev server.
+- `npm run build` - create a production build in `dist/`.
+- `npm run preview` - preview the production build locally.
+- `npm run lint` - run ESLint checks.
+- `npm run lint:fix` - auto-fix lint issues where possible.
+- `npm run test` - run unit tests in watch mode.
+- `npm run test:run` - run unit tests once (CI/local verification).
+
 ## Build & Deploy
 
 ```bash
@@ -47,7 +57,7 @@ For Netlify/Vercel deploys, publish the `dist/` directory (leave `dist/` ignored
 
 - `src/features/` – domain-specific slices and UI (cart, menu, order, user).
 - `src/services/` – API clients (`apiRestaurant.js`, `apiGeocoding.js`).
-- `src/test/` – test setup and centralized unit tests (`src/test/unit`).
+- `src/test/` – test setup and centralized unit tests (`src/test/unit`), covering reducers/selectors, route actions/loaders, API services, and key UI flows.
 - `src/ui/` – shared layout and components.
 - `src/utils/` – helper utilities.
 - `src/store.js` – Redux store configuration.
