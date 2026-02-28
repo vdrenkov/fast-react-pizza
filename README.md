@@ -9,6 +9,8 @@ React + Redux Toolkit single-page app for browsing a pizza menu, managing a cart
 - Order creation flow with form validation and optional geolocation-powered address lookup.
 - Order tracking page with status updates and partial updates (PATCH).
 - Responsive Tailwind UI components and route-aware layout.
+- SEO/social metadata (canonical, Open Graph, Twitter cards, WebSite JSON-LD).
+- Indexing and deploy assets via `robots.txt`, `sitemap.xml`, and Netlify SPA redirects.
 
 ## Tech Stack
 
@@ -33,6 +35,10 @@ npm run test    # run tests in watch mode
 
 Open `http://localhost:5173` (default) to view the app. The geolocation lookup requires allowing browser location access and HTTPS in production.
 
+## Live Demo
+
+- https://fast-react-pizza-vdrenkov.netlify.app/
+
 ## Scripts
 
 - `npm run dev` - start Vite dev server.
@@ -46,12 +52,13 @@ Open `http://localhost:5173` (default) to view the app. The geolocation lookup r
 ## Build & Deploy
 
 ```bash
-npm run build   # outputs production assets into dist/
-npm run preview # serve the build locally
+npm run build    # outputs production assets into dist/
+npm run preview  # serve the build locally
 npm run test:run # run unit tests once (CI/local verification)
 ```
 
-For Netlify/Vercel deploys, publish the `dist/` directory (leave `dist/` ignored in git). Add a SPA redirect such as a `_redirects` file containing `/* /index.html 200` so client-side routes resolve correctly.
+For Netlify/Vercel deploys, publish the `dist/` directory (leave `dist/` ignored in git).
+This repository already includes `public/_redirects` with `/* /index.html 200`, so direct visits to client-side routes (for example `/menu` or `/cart`) resolve correctly.
 
 ## Project Structure
 
@@ -60,6 +67,7 @@ For Netlify/Vercel deploys, publish the `dist/` directory (leave `dist/` ignored
 - `src/test/` – test setup and centralized unit tests (`src/test/unit`), covering reducers/selectors, route actions/loaders, API services, and key UI flows.
 - `src/ui/` – shared layout and components.
 - `src/utils/` – helper utilities.
+- `public/` – static deploy assets (`_redirects`, `robots.txt`, `sitemap.xml`, `og-cover.svg`).
 - `src/store.js` – Redux store configuration.
 - `vitest.config.js` – Vitest test runner configuration.
 
