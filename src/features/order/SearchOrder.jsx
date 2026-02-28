@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 
 export default function SearchOrder() {
-  const [query, setQuery] = useState();
+  const [query, setQuery] = useState("");
   const navigate = useNavigate();
 
   function handleSubmit(event) {
