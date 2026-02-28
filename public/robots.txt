@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://fast-react-pizza-vdrenkov.netlify.app/sitemap.xml

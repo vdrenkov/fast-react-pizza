@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Fast React Pizza</title>
+  <desc id="desc">Pizza ordering app cover image</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#292524" />
+      <stop offset="100%" stop-color="#0c0a09" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#f97316" />
+      <stop offset="100%" stop-color="#facc15" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <rect x="72" y="72" width="1056" height="486" rx="24" fill="#1c1917" opacity="0.85" />
+  <circle cx="180" cy="160" r="52" fill="url(#accent)" />
+  <text x="162" y="178" font-size="48" font-family="Arial, Helvetica, sans-serif">🍕</text>
+
+  <text
+    x="260"
+    y="210"
+    fill="#fafaf9"
+    font-size="74"
+    font-weight="700"
+    font-family="Arial, Helvetica, sans-serif"
+  >
+    Fast React Pizza
+  </text>
+  <text
+    x="260"
+    y="278"
+    fill="#d6d3d1"
+    font-size="34"
+    font-family="Arial, Helvetica, sans-serif"
+  >
+    Browse menu. Build cart. Place order.
+  </text>
+  <text
+    x="260"
+    y="328"
+    fill="#d6d3d1"
+    font-size="34"
+    font-family="Arial, Helvetica, sans-serif"
+  >
+    Track status in a production-ready React SPA.
+  </text>
+
+  <rect x="260" y="386" width="340" height="66" rx="12" fill="url(#accent)" />
+  <text
+    x="292"
+    y="430"
+    fill="#1c1917"
+    font-size="32"
+    font-weight="700"
+    font-family="Arial, Helvetica, sans-serif"
+  >
+    Live Demo
+  </text>
+
+  <text
+    x="260"
+    y="510"
+    fill="#a8a29e"
+    font-size="24"
+    font-family="Arial, Helvetica, sans-serif"
+  >
+    fast-react-pizza-vdrenkov.netlify.app
+  </text>
+</svg>
