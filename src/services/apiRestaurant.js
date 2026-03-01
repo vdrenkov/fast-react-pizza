@@ -3,7 +3,7 @@ const API_URL = "https://react-fast-pizza-api.jonas.io/api";
 export async function getMenu() {
   const res = await fetch(`${API_URL}/menu`);
 
-  if (!res.ok) throw Error("Failed getting menu");
+  if (!res.ok) throw new Error("Failed getting menu");
 
   const { data } = await res.json();
   return data;
@@ -11,7 +11,7 @@ export async function getMenu() {
 
 export async function getOrder(id) {
   const res = await fetch(`${API_URL}/order/${id}`);
-  if (!res.ok) throw Error(`Couldn't find order #${id}`);
+  if (!res.ok) throw new Error(`Couldn't find order #${id}`);
 
   const { data } = await res.json();
   return data;
@@ -27,11 +27,11 @@ export async function createOrder(newOrder) {
       },
     });
 
-    if (!res.ok) throw Error();
+    if (!res.ok) throw new Error();
     const { data } = await res.json();
     return data;
   } catch {
-    throw Error("Failed creating your order");
+    throw new Error("Failed creating your order");
   }
 }
 
@@ -45,8 +45,8 @@ export async function updateOrder(id, updateObj) {
       },
     });
 
-    if (!res.ok) throw Error();
+    if (!res.ok) throw new Error();
   } catch {
-    throw Error("Failed updating your order");
+    throw new Error("Failed updating your order");
   }
 }

@@ -100,7 +100,7 @@ export default function CreateOrder() {
             )}
           </div>
           {!position.latitude && !position.longitude && (
-            <span className="absolute right-[3px] top-[3px] z-50 md:right-[5px] md:top-[5px]">
+            <span className="absolute top-[3px] right-[3px] z-50 md:top-[5px] md:right-[5px]">
               <Button
                 type="small"
                 disabled={isLoadingAddress}
@@ -117,7 +117,7 @@ export default function CreateOrder() {
 
         <div className="mb-12 flex items-center gap-5">
           <input
-            className="h-6 w-6 accent-yellow-400 focus:outline-none focus:ring focus:ring-yellow-400 focus:ring-offset-2"
+            className="h-6 w-6 accent-yellow-400 focus:ring focus:ring-yellow-400 focus:ring-offset-2 focus:outline-none"
             type="checkbox"
             name="priority"
             id="priority"
@@ -166,9 +166,7 @@ export async function action({ request }) {
       "Please, give us your correct phone number. We might need it to contact you.";
   if (Object.keys(errors).length > 0) return errors;
 
-  // If everything is correct, create new order, clear cart, and redirect.
   const newOrder = await createOrder(order);
   store.dispatch(clearCart());
   return redirect(`/order/${newOrder.id}`);
 }
-
