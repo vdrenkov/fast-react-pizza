@@ -18,6 +18,7 @@ describe("apiGeocoding", () => {
     expect(address).toEqual({ city: "Sofia", countryName: "Bulgaria" });
     expect(globalThis.fetch).toHaveBeenCalledWith(
       "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=42.6977&longitude=23.3219",
+      { signal: expect.any(AbortSignal) },
     );
   });
 

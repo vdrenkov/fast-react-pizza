@@ -26,7 +26,9 @@ describe("Button", () => {
       </Button>,
     );
 
-    expect(screen.getByRole("button", { name: "Legacy disabled" })).toBeDisabled();
+    expect(
+      screen.getByRole("button", { name: "Legacy disabled" }),
+    ).toBeDisabled();
   });
 
   it("triggers click when enabled", () => {

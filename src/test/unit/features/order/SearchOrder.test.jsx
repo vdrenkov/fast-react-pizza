@@ -14,6 +14,14 @@ vi.mock("react-router", async () => {
 import SearchOrder from "../../../../features/order/SearchOrder";
 
 describe("SearchOrder", () => {
+  it("searchOrder_reservedCharacters_encodesRoute", () => {
+    render(<SearchOrder />);
+    const input = screen.getByLabelText("Order number");
+    fireEvent.change(input, { target: { value: " a/b?c " } });
+    fireEvent.submit(input.closest("form"));
+    expect(mockNavigate).toHaveBeenCalledWith("/order/a%2Fb%3Fc");
+  });
+
   afterEach(() => {
     mockNavigate.mockReset();
   });

@@ -4,8 +4,8 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 const mockDispatch = vi.fn();
 const mockNavigate = vi.fn();
 
-vi.mock("react-redux", () => ({
-  useDispatch: () => mockDispatch,
+vi.mock("../../../../hooks", () => ({
+  useAppDispatch: () => mockDispatch,
 }));
 
 vi.mock("react-router", async () => {
@@ -20,6 +20,16 @@ import CreateUser from "../../../../features/user/CreateUser";
 import { updateName } from "../../../../features/user/userSlice";
 
 describe("CreateUser", () => {
+  it("createUser_whitespaceName_doesNotNavigate", () => {
+    const { container } = render(<CreateUser />);
+    fireEvent.change(screen.getByLabelText("What should we call you?"), {
+      target: { value: "   " },
+    });
+    fireEvent.submit(container.querySelector("form"));
+    expect(mockDispatch).not.toHaveBeenCalled();
+    expect(mockNavigate).not.toHaveBeenCalled();
+  });
+
   afterEach(() => {
     mockDispatch.mockReset();
     mockNavigate.mockReset();
