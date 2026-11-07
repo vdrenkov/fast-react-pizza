@@ -132,22 +132,25 @@ export default function CreateOrder() {
             </p>
           )}
         </div>
-        <label className="priority-option">
+        <div className="priority-option">
           <input
             type="checkbox"
+            id="priority"
             name="priority"
             value="true"
             checked={withPriority}
             onChange={(event) => setWithPriority(event.target.checked)}
           />
           <span>
-            <strong>Make it a priority</strong>
+            <label htmlFor="priority">
+              <strong>Make it a priority</strong>
+            </label>
             <span>
               Add 20% ({formatCurrency(totalCartPrice * 0.2)}) to move up the
               queue.
             </span>
           </span>
-        </label>
+        </div>
         <input type="hidden" name="cart" value={JSON.stringify(cart)} />
         <input
           type="hidden"
