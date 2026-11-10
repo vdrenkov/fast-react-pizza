@@ -40,4 +40,11 @@ describe("helpers", () => {
     expect(calcMinutesLeft("2026-02-27T10:07:00.000Z")).toBe(7);
     expect(calcMinutesLeft("2026-02-27T09:58:00.000Z")).toBe(-2);
   });
+
+  it("calcMinutesLeft_suppliedClock_roundsRemainingMinutesUp", () => {
+    const now = Date.parse("2026-02-27T10:00:30.000Z");
+
+    expect(calcMinutesLeft("2026-02-27T10:07:00.000Z", now)).toBe(7);
+    expect(calcMinutesLeft("2026-02-27T09:58:00.000Z", now)).toBe(-2);
+  });
 });

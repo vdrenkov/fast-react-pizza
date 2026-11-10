@@ -21,7 +21,7 @@ export default function AppLayout() {
 
   return (
     <div className="app-shell">
-      <a href="#main-content" className="skip-link" tabIndex={0}>
+      <a href="#main-content" className="skip-link">
         Skip to content
       </a>
       <div className="announcement">A little dough. A lot of happiness.</div>

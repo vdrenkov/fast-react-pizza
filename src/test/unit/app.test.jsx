@@ -74,6 +74,17 @@ describe("ordering application", () => {
     ).toBeVisible();
   });
 
+  it("menu_soldOutPizza_hidesAddButton", async () => {
+    renderRoute("/menu");
+
+    expect(
+      await screen.findByRole("heading", { name: "Sold out" }),
+    ).toBeVisible();
+    expect(
+      screen.queryByRole("button", { name: "Add Sold out to cart" }),
+    ).not.toBeInTheDocument();
+  });
+
   it("home_newCustomer_showsWelcomeForm", () => {
     renderRoute("/");
     expect(screen.getByLabelText("What should we call you?")).toBeVisible();
@@ -113,6 +124,26 @@ describe("ordering application", () => {
     );
   });
 
+  it("checkout_networkFailure_preservesDetailsAndCart", async () => {
+    vi.mocked(globalThis.fetch).mockRejectedValue(new TypeError("Offline"));
+    store.dispatch(addItem(cartItem));
+    const user = renderRoute("/order/new");
+
+    await user.type(screen.getByLabelText("First name"), "Demo Guest");
+    await user.type(screen.getByLabelText("Phone number"), "+359888123456");
+    await user.type(screen.getByLabelText("Delivery address"), "1 Demo Street");
+    await user.click(screen.getByRole("button", { name: /Place demo order/ }));
+
+    expect(await screen.findByRole("alert")).toHaveTextContent(
+      "Check your connection",
+    );
+    expect(screen.getByLabelText("First name")).toHaveValue("Demo Guest");
+    expect(screen.getByLabelText("Delivery address")).toHaveValue(
+      "1 Demo Street",
+    );
+    expect(store.getState().cart.cart).toEqual([cartItem]);
+  });
+
   it("checkout_emptyCart_showsMenuLink", () => {
     renderRoute("/order/new");
     expect(
@@ -150,6 +181,35 @@ describe("ordering application", () => {
       screen.queryByRole("button", { name: "Make priority" }),
     ).not.toBeInTheDocument();
     expect(screen.getByText("€14.40")).toBeVisible();
+  });
+
+  it("order_priorityUpgrade_updatesStatusAndTotal", async () => {
+    let priority = false;
+    vi.mocked(globalThis.fetch).mockImplementation(
+      async (_requestUrl, options) => {
+        if (options?.method === "PATCH") {
+          priority = true;
+          return new Response(null, { status: 204 });
+        }
+
+        return Response.json({
+          data: { ...order, priority, priorityPrice: priority ? 2.4 : 0 },
+        });
+      },
+    );
+    const user = renderRoute("/order/ABC123");
+
+    await user.click(
+      await screen.findByRole("button", { name: "Make priority" }),
+    );
+
+    expect(
+      await screen.findAllByText("Priority", { exact: true }),
+    ).toHaveLength(2);
+    expect(screen.getByText("€14.40")).toBeVisible();
+    expect(
+      screen.queryByRole("button", { name: "Make priority" }),
+    ).not.toBeInTheDocument();
   });
 
   it("navigation_unknownRoute_showsRecoveryLink", async () => {

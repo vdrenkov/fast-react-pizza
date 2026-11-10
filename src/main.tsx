@@ -1,22 +1,19 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
+import { createBrowserRouter, RouterProvider } from "react-router";
 
-import App from "./App";
+import { routes } from "./routes";
 import store from "./store";
 
 import "./index.css";
 
-const root = document.getElementById("root");
+const router = createBrowserRouter(routes);
 
-if (!root) {
-  throw new Error("The application root is missing.");
-}
-
-ReactDOM.createRoot(root).render(
-  <React.StrictMode>
+createRoot(document.getElementById("root")!).render(
+  <StrictMode>
     <Provider store={store}>
-      <App />
+      <RouterProvider router={router} />
     </Provider>
-  </React.StrictMode>,
+  </StrictMode>,
 );

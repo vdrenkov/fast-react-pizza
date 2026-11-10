@@ -1,6 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import Button from "../../ui/Button";
-import LinkButton from "../../ui/LinkButton";
 import { formatCurrency } from "../../utils/helpers";
 import { getUsername } from "../user/userSlice";
 import CartItem from "./CartItem";
@@ -19,7 +18,9 @@ export default function Cart() {
 
   return (
     <section className="page-section cart-page">
-      <LinkButton to="/menu">← Back to menu</LinkButton>
+      <Link to="/menu" className="text-link">
+        ← Back to menu
+      </Link>
       <p className="eyebrow">Looking delicious</p>
       <h1>Your cart{username ? `, ${username}` : ""}.</h1>
       <ul className="cart-items">
@@ -42,3 +43,4 @@ export default function Cart() {
     </section>
   );
 }
+import { Link } from "react-router";

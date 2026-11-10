@@ -17,9 +17,7 @@ export default function Order() {
   const order = useLoaderData<typeof loader>();
   const revalidator = useRevalidator();
   const [now, setNow] = useState(Date.now);
-  const deliveryIn = Math.ceil(
-    (new Date(order.estimatedDelivery).getTime() - now) / 60_000,
-  );
+  const deliveryIn = calcMinutesLeft(order.estimatedDelivery, now);
   const delivered = order.status === "delivered";
 
   useEffect(() => {
@@ -78,11 +76,9 @@ export default function Order() {
           <span>{formatCurrency(order.orderPrice + order.priorityPrice)}</span>
         </p>
       </div>
-      {!order.priority &&
-        !delivered &&
-        calcMinutesLeft(order.estimatedDelivery) > 0 && (
-          <UpdateOrder orderPrice={order.orderPrice} />
-        )}
+      {!order.priority && !delivered && deliveryIn > 0 && (
+        <UpdateOrder orderPrice={order.orderPrice} />
+      )}
       <p className="field-hint">
         Portfolio demo · No payment or delivery. Keep your order number to look
         it up later.

@@ -14,7 +14,7 @@ export function formatDate(dateStr: string) {
   }).format(new Date(dateStr));
 }
 
-export function calcMinutesLeft(dateStr: string) {
+export function calcMinutesLeft(dateStr: string, now = Date.now()) {
   const deliveryTime = new Date(dateStr).getTime();
-  return Math.ceil((deliveryTime - Date.now()) / 60000);
+  return Math.ceil((deliveryTime - now) / 60000);
 }

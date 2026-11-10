@@ -20,7 +20,7 @@ export default function MenuItem({ pizza }: { pizza: Pizza }) {
       name,
       quantity: 1,
       unitPrice,
-      totalPrice: unitPrice * 1,
+      totalPrice: unitPrice,
     };
     dispatch(addItem(newItem));
   }

@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { Form, redirect, useActionData, useNavigation } from "react-router";
+import {
+  Form,
+  Link,
+  redirect,
+  useActionData,
+  useNavigation,
+} from "react-router";
 import { z } from "zod";
 
 import { useAppDispatch, useAppSelector } from "../../hooks";
@@ -7,7 +13,6 @@ import { createOrder } from "../../services/apiRestaurant";
 import store from "../../store";
 import { cartItemSchema } from "../../types";
 import Button from "../../ui/Button";
-import LinkButton from "../../ui/LinkButton";
 import { formatCurrency } from "../../utils/helpers";
 import { clearCart, getCart, getTotalCartPrice } from "../cart/cartSlice";
 import EmptyCart from "../cart/EmptyCart";
@@ -49,7 +54,9 @@ export default function CreateOrder() {
 
   return (
     <section className="page-section checkout">
-      <LinkButton to="/cart">← Back to cart</LinkButton>
+      <Link to="/cart" className="text-link">
+        ← Back to cart
+      </Link>
       <p className="eyebrow">One last thing</p>
       <h1>Where’s pizza going?</h1>
       <p className="section-description">
