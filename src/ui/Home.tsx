@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import CreateUser from "../features/user/CreateUser";
 import { getUsername } from "../features/user/userSlice";
 import { useAppSelector } from "../hooks";
+import { getPizzaImage } from "../utils/pizzaImages";
 import Button from "./Button";
 
 export default function Home() {
@@ -43,10 +44,14 @@ export default function Home() {
         <div className="hero-art">
           <div className="hero-circle" />
           <img
-            src="https://dclaevazetcjjkrzczpc.supabase.co/storage/v1/object/public/pizzas/pizza-1.jpg"
+            {...getPizzaImage(
+              "Margherita",
+              "https://dclaevazetcjjkrzczpc.supabase.co/storage/v1/object/public/pizzas/pizza-1.jpg",
+            )}
+            sizes="(max-width: 640px) 280px, (max-width: 1000px) 36vw, 444px"
             alt="Margherita pizza with tomato, mozzarella and fresh basil"
-            width={600}
-            height={600}
+            width={1254}
+            height={1254}
             fetchPriority="high"
           />
           <div className="hero-stamp">

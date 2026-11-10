@@ -1,6 +1,7 @@
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import Button from "../../ui/Button";
 import { formatCurrency } from "../../utils/helpers";
+import { getPizzaImage } from "../../utils/pizzaImages";
 import { addItem, getCurrentQuantityById } from "../cart/cartSlice";
 import DeleteItem from "../cart/DeleteItem";
 import UpdateItemQuantity from "../cart/UpdateItemQuantity";
@@ -27,10 +28,11 @@ export default function MenuItem({ pizza }: { pizza: Pizza }) {
   return (
     <li className={`pizza-card ${soldOut ? "pizza-card--sold-out" : ""}`}>
       <img
-        src={imageUrl}
+        {...getPizzaImage(name, imageUrl)}
+        sizes="(max-width: 640px) calc(100vw - 42px), (max-width: 1000px) calc((100vw - 84px) / 2), (max-width: 1280px) calc((100vw - 150px) / 3), 377px"
         alt={name}
-        width={400}
-        height={400}
+        width={1254}
+        height={1254}
         loading="lazy"
         className="pizza-image"
       />
