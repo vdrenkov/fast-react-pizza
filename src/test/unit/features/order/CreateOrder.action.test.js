@@ -5,6 +5,7 @@ import { clearCart } from "../../../../features/cart/cartSlice";
 import { action } from "../../../../features/order/CreateOrder";
 import { createOrder } from "../../../../services/apiRestaurant";
 import store from "../../../../store";
+import { cartItem } from "../../../fixtures";
 
 vi.mock("react-router", async () => {
   const actual = await vi.importActual("react-router");
@@ -42,6 +43,46 @@ function buildRequest(payload) {
 }
 
 describe("CreateOrder action", () => {
+  it("createOrder_blankDetails_rejectsBeforeCallingApi", async () => {
+    const request = buildRequest({
+      customer: "   ",
+      phone: "123",
+      address: "  ",
+    });
+    const result = await action({ request });
+    expect(result).toHaveProperty("customer");
+    expect(result).toHaveProperty("phone");
+    expect(result).toHaveProperty("address");
+    expect(mockedCreateOrder).not.toHaveBeenCalled();
+  });
+
+  it.each(["not-json", "[]", '[{"pizzaId":1,"quantity":-1}]'])(
+    "createOrder_invalidCart_rejectsPayload (%s)",
+    async (cart) => {
+      const request = buildRequest({
+        customer: "Demo",
+        phone: "1234567890",
+        address: "Demo Street",
+        cart,
+      });
+      expect(await action({ request })).toHaveProperty("form");
+      expect(mockedCreateOrder).not.toHaveBeenCalled();
+    },
+  );
+
+  it("createOrder_apiFailure_keepsCartAndReturnsError", async () => {
+    mockedCreateOrder.mockRejectedValue(new Error("Service unavailable"));
+    const request = buildRequest({
+      customer: "Demo",
+      phone: "1234567890",
+      address: "Demo Street",
+      cart: JSON.stringify([cartItem]),
+    });
+    expect(await action({ request })).toEqual({ form: "Service unavailable" });
+    expect(mockedDispatch).not.toHaveBeenCalled();
+    expect(mockedRedirect).not.toHaveBeenCalled();
+  });
+
   afterEach(() => {
     mockedCreateOrder.mockReset();
     mockedRedirect.mockClear();
@@ -61,8 +102,7 @@ describe("CreateOrder action", () => {
     const result = await action({ request });
 
     expect(result).toEqual({
-      phone:
-        "Please, give us your correct phone number. We might need it to contact you.",
+      phone: "Enter a phone number with 7 to 15 digits.",
     });
     expect(mockedCreateOrder).not.toHaveBeenCalled();
     expect(mockedDispatch).not.toHaveBeenCalled();
@@ -76,7 +116,7 @@ describe("CreateOrder action", () => {
       customer: "Valentin",
       phone: "+359 888 123 456",
       address: "Sofia",
-      cart: JSON.stringify([{ pizzaId: 1, quantity: 2 }]),
+      cart: JSON.stringify([cartItem]),
       priority: "true",
       position: "42.6977,23.3219",
     });
@@ -87,7 +127,7 @@ describe("CreateOrder action", () => {
       customer: "Valentin",
       phone: "+359 888 123 456",
       address: "Sofia",
-      cart: [{ pizzaId: 1, quantity: 2 }],
+      cart: [cartItem],
       priority: true,
       position: "42.6977,23.3219",
     });

@@ -18,7 +18,9 @@ describe("Menu loader", () => {
     const menu = [{ id: 1, name: "Margherita" }];
     mockedGetMenu.mockResolvedValue(menu);
 
-    const result = await loader();
+    const result = await loader({
+      request: new Request("http://localhost/menu"),
+    });
 
     expect(result).toEqual(menu);
     expect(mockedGetMenu).toHaveBeenCalledTimes(1);

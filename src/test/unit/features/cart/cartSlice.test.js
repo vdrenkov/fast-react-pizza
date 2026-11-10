@@ -29,6 +29,25 @@ const carbonara = {
 };
 
 describe("cartSlice", () => {
+  it("changeQuantity_missingItem_preservesCart", () => {
+    const state = { cart: [margherita] };
+    expect(reducer(state, increaseItemQuantity(999))).toEqual(state);
+    expect(reducer(state, decreaseItemQuantity(999))).toEqual(state);
+  });
+
+  it("addItem_duplicatePizza_mergesQuantities", () => {
+    const state = { cart: [margherita] };
+    const result = reducer(state, addItem(margherita));
+    expect(result.cart).toEqual([
+      { ...margherita, quantity: 2, totalPrice: 20 },
+    ]);
+  });
+
+  it("increaseQuantity_atLimit_preservesQuantity", () => {
+    const state = { cart: [{ ...margherita, quantity: 99, totalPrice: 990 }] };
+    expect(reducer(state, increaseItemQuantity(1))).toEqual(state);
+  });
+
   it("returns initial state", () => {
     expect(reducer(undefined, { type: "unknown" })).toEqual({ cart: [] });
   });
@@ -48,7 +67,10 @@ describe("cartSlice", () => {
     expect(increased.cart[0].quantity).toBe(3);
     expect(increased.cart[0].totalPrice).toBe(36);
 
-    const decreased = reducer(increased, decreaseItemQuantity(carbonara.pizzaId));
+    const decreased = reducer(
+      increased,
+      decreaseItemQuantity(carbonara.pizzaId),
+    );
     expect(decreased.cart[0].quantity).toBe(2);
     expect(decreased.cart[0].totalPrice).toBe(24);
   });

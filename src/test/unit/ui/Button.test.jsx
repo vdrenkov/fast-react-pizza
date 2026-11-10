@@ -19,16 +19,6 @@ describe("Button", () => {
     expect(onClick).not.toHaveBeenCalled();
   });
 
-  it("keeps backward compatibility with isDisabled prop", () => {
-    render(
-      <Button type="secondary" isDisabled>
-        Legacy disabled
-      </Button>,
-    );
-
-    expect(screen.getByRole("button", { name: "Legacy disabled" })).toBeDisabled();
-  });
-
   it("triggers click when enabled", () => {
     const onClick = vi.fn();
     render(

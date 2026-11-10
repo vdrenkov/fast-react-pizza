@@ -1,6 +1,10 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { calcMinutesLeft, formatCurrency, formatDate } from "../../../utils/helpers";
+import {
+  calcMinutesLeft,
+  formatCurrency,
+  formatDate,
+} from "../../../utils/helpers";
 
 describe("helpers", () => {
   afterEach(() => {
