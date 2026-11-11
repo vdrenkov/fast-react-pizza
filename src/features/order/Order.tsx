@@ -79,10 +79,7 @@ export default function Order() {
       {!order.priority && !delivered && deliveryIn > 0 && (
         <UpdateOrder orderPrice={order.orderPrice} />
       )}
-      <p className="field-hint">
-        Portfolio demo · No payment or delivery. Keep your order number to look
-        it up later.
-      </p>
+      <p className="field-hint">Keep your order number to look it up later.</p>
     </section>
   );
 }

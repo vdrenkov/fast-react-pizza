@@ -59,10 +59,6 @@ export default function CreateOrder() {
       </Link>
       <p className="eyebrow">One last thing</p>
       <h1>Where’s pizza going?</h1>
-      <p className="section-description">
-        This is a portfolio demo using a public teaching API. Use fictional
-        contact details; no payment is collected or pizza delivered.
-      </p>
       <Form method="post" className="checkout-form">
         <div className="field">
           <label htmlFor="customer">First name</label>
@@ -189,7 +185,7 @@ export default function CreateOrder() {
         >
           {isSubmitting
             ? "Placing order…"
-            : `Place demo order · ${formatCurrency(totalPrice)}`}
+            : `Place order · ${formatCurrency(totalPrice)}`}
         </Button>
       </Form>
     </section>

@@ -100,7 +100,7 @@ describe("ordering application", () => {
       screen.getByLabelText("Make it a priority", { exact: false }),
     );
     await user.click(
-      screen.getByRole("button", { name: "Place demo order · €14.40" }),
+      screen.getByRole("button", { name: "Place order · €14.40" }),
     );
     expect(
       await screen.findByRole("heading", { name: "Order #ABC123" }),
@@ -114,7 +114,7 @@ describe("ordering application", () => {
     await user.type(screen.getByLabelText("First name"), "Demo");
     await user.type(screen.getByLabelText("Phone number"), "123");
     await user.type(screen.getByLabelText("Delivery address"), "Demo Street");
-    await user.click(screen.getByRole("button", { name: /Place demo order/ }));
+    await user.click(screen.getByRole("button", { name: /Place order/ }));
     expect(await screen.findByRole("alert")).toHaveTextContent(
       "check the highlighted details",
     );
@@ -132,7 +132,7 @@ describe("ordering application", () => {
     await user.type(screen.getByLabelText("First name"), "Demo Guest");
     await user.type(screen.getByLabelText("Phone number"), "+359888123456");
     await user.type(screen.getByLabelText("Delivery address"), "1 Demo Street");
-    await user.click(screen.getByRole("button", { name: /Place demo order/ }));
+    await user.click(screen.getByRole("button", { name: /Place order/ }));
 
     expect(await screen.findByRole("alert")).toHaveTextContent(
       "Check your connection",
