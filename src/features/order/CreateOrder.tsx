@@ -175,7 +175,7 @@ export default function CreateOrder() {
           </p>
         )}
         <div className="checkout-total">
-          <span>Total · pay on delivery</span>
+          <span>Total • pay on delivery</span>
           <strong>{formatCurrency(totalPrice)}</strong>
         </div>
         <Button
