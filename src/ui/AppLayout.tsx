@@ -30,13 +30,7 @@ export default function AppLayout() {
       <main ref={mainRef} id="main-content" tabIndex={-1}>
         <Outlet />
       </main>
-      <footer className="site-footer">
-        <span>Fast React Pizza Co.</span>
-        <span>
-          A portfolio demo by Valentin Drenkov · Inspired by Jonas Schmedtmann’s
-          React course.
-        </span>
-      </footer>
+      <footer className="site-footer">Fast React Pizza Co.</footer>
       <CartOverview />
     </div>
   );
