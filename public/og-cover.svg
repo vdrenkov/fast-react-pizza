@@ -34,7 +34,7 @@
     font-size="34"
     font-family="Arial, Helvetica, sans-serif"
   >
-    Browse menu. Build cart. Place order.
+    Browse the menu. Find your favourite.
   </text>
   <text
     x="260"
@@ -43,7 +43,7 @@
     font-size="34"
     font-family="Arial, Helvetica, sans-serif"
   >
-    Track status in a production-ready React SPA.
+    Great pizza. Just a few clicks away.
   </text>
 
   <rect x="260" y="386" width="340" height="66" rx="12" fill="url(#accent)" />
@@ -55,7 +55,7 @@
     font-weight="700"
     font-family="Arial, Helvetica, sans-serif"
   >
-    Live Demo
+    Explore the menu
   </text>
 
   <text
