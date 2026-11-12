@@ -13,7 +13,7 @@ import { createOrder } from "../../services/apiRestaurant";
 import store from "../../store";
 import { cartItemSchema } from "../../types";
 import Button from "../../ui/Button";
-import { formatCurrency } from "../../utils/helpers";
+import { calcPriorityPrice, formatCurrency } from "../../utils/helpers";
 import { clearCart, getCart, getTotalCartPrice } from "../cart/cartSlice";
 import EmptyCart from "../cart/EmptyCart";
 import { fetchAddress } from "../user/userSlice";
@@ -38,7 +38,8 @@ export default function CreateOrder() {
   const formErrors = useActionData<FormErrors>();
   const isSubmitting = navigation.state === "submitting";
   const isLoadingAddress = user.status === "loading";
-  const totalPrice = totalCartPrice * (withPriority ? 1.2 : 1);
+  const priorityPrice = calcPriorityPrice(totalCartPrice);
+  const totalPrice = totalCartPrice + (withPriority ? priorityPrice : 0);
 
   async function locateAddress() {
     const result = await dispatch(fetchAddress());
@@ -149,8 +150,7 @@ export default function CreateOrder() {
               <strong>Make it a priority</strong>
             </label>
             <span>
-              Add 20% ({formatCurrency(totalCartPrice * 0.2)}) to move up the
-              queue.
+              Add {formatCurrency(priorityPrice)} to move up the queue.
             </span>
           </span>
         </div>

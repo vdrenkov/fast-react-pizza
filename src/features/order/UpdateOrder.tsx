@@ -2,7 +2,7 @@ import { useFetcher } from "react-router";
 
 import { updateOrder } from "../../services/apiRestaurant";
 import Button from "../../ui/Button";
-import { formatCurrency } from "../../utils/helpers";
+import { calcPriorityPrice, formatCurrency } from "../../utils/helpers";
 
 import type { ActionFunctionArgs } from "react-router";
 
@@ -12,7 +12,10 @@ export default function UpdateOrder({ orderPrice }: { orderPrice: number }) {
 
   return (
     <fetcher.Form method="patch" className="priority-update">
-      <p>Skip the queue for an extra {formatCurrency(orderPrice * 0.2)}.</p>
+      <p>
+        Skip the queue for an extra{" "}
+        {formatCurrency(calcPriorityPrice(orderPrice))}.
+      </p>
       <Button type="primary" submit disabled={pending}>
         {pending ? "Updating…" : "Make priority"}
       </Button>

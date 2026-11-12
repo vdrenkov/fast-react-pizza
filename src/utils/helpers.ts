@@ -1,3 +1,7 @@
+export function calcPriorityPrice(orderPrice: number) {
+  return Math.round(orderPrice * 0.2);
+}
+
 export function formatCurrency(value: number) {
   return new Intl.NumberFormat("en", {
     style: "currency",

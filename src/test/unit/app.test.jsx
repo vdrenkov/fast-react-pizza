@@ -90,23 +90,51 @@ describe("ordering application", () => {
     expect(screen.getByLabelText("What should we call you?")).toBeVisible();
   });
 
-  it("checkout_success_clearsCartAndShowsOrder", async () => {
-    store.dispatch(addItem(cartItem));
-    const user = renderRoute("/order/new");
-    await user.type(screen.getByLabelText("First name"), "Demo Guest");
-    await user.type(screen.getByLabelText("Phone number"), "+359888123456");
-    await user.type(screen.getByLabelText("Delivery address"), "1 Demo Street");
-    await user.click(
-      screen.getByLabelText("Make it a priority", { exact: false }),
-    );
-    await user.click(
-      screen.getByRole("button", { name: "Place order · €14.40" }),
-    );
-    expect(
-      await screen.findByRole("heading", { name: "Order #ABC123" }),
-    ).toBeVisible();
-    expect(store.getState().cart.cart).toEqual([]);
-  });
+  it.each([
+    [12, 2, 14],
+    [13, 3, 16],
+    [15, 3, 18],
+  ])(
+    "checkout_priorityPrice%s_matchesConfirmedTotal",
+    async (price, priorityPrice, total) => {
+      const item = { ...cartItem, unitPrice: price, totalPrice: price };
+      vi.mocked(globalThis.fetch)
+        .mockResolvedValueOnce(Response.json({ data: { id: order.id } }))
+        .mockResolvedValue(
+          Response.json({
+            data: {
+              ...order,
+              cart: [item],
+              orderPrice: price,
+              priority: true,
+              priorityPrice,
+            },
+          }),
+        );
+      store.dispatch(addItem(item));
+      const user = renderRoute("/order/new");
+      expect(
+        screen.getByRole("button", { name: `Place order · €${price}.00` }),
+      ).toBeVisible();
+      await user.type(screen.getByLabelText("First name"), "Demo Guest");
+      await user.type(screen.getByLabelText("Phone number"), "+359888123456");
+      await user.type(
+        screen.getByLabelText("Delivery address"),
+        "1 Demo Street",
+      );
+      await user.click(
+        screen.getByLabelText("Make it a priority", { exact: false }),
+      );
+      await user.click(
+        screen.getByRole("button", { name: `Place order · €${total}.00` }),
+      );
+      expect(
+        await screen.findByRole("heading", { name: "Order #ABC123" }),
+      ).toBeVisible();
+      expect(screen.getByText(`€${total}.00`)).toBeVisible();
+      expect(store.getState().cart.cart).toEqual([]);
+    },
+  );
 
   it("checkout_invalidPhone_showsAccessibleError", async () => {
     store.dispatch(addItem(cartItem));
@@ -169,7 +197,7 @@ describe("ordering application", () => {
           ...order,
           status: "delivered",
           priority: true,
-          priorityPrice: 2.4,
+          priorityPrice: 2,
         },
       }),
     );
@@ -180,7 +208,7 @@ describe("ordering application", () => {
     expect(
       screen.queryByRole("button", { name: "Make priority" }),
     ).not.toBeInTheDocument();
-    expect(screen.getByText("€14.40")).toBeVisible();
+    expect(screen.getByText("€14.00")).toBeVisible();
   });
 
   it("order_priorityUpgrade_updatesStatusAndTotal", async () => {
@@ -193,12 +221,15 @@ describe("ordering application", () => {
         }
 
         return Response.json({
-          data: { ...order, priority, priorityPrice: priority ? 2.4 : 0 },
+          data: { ...order, priority, priorityPrice: priority ? 2 : 0 },
         });
       },
     );
     const user = renderRoute("/order/ABC123");
 
+    expect(
+      await screen.findByText("Skip the queue for an extra €2.00."),
+    ).toBeVisible();
     await user.click(
       await screen.findByRole("button", { name: "Make priority" }),
     );
@@ -206,7 +237,7 @@ describe("ordering application", () => {
     expect(
       await screen.findAllByText("Priority", { exact: true }),
     ).toHaveLength(2);
-    expect(screen.getByText("€14.40")).toBeVisible();
+    expect(screen.getByText("€14.00")).toBeVisible();
     expect(
       screen.queryByRole("button", { name: "Make priority" }),
     ).not.toBeInTheDocument();
